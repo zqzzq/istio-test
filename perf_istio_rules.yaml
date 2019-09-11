@@ -1,0 +1,52 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: fortio
+  namespace: perf-istio
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - default.istio-system.svc.cluster.local
+  http:
+  - match:
+    - uri:
+        prefix: /fortio1/
+    route:
+    - destination:
+        host: echosrv1.perf-istio.svc.cluster.local
+        port:
+          number: 8080
+    rewrite:
+      uri: / # drop the /fortio1 prefix when talking to fortio such as /fortio1/fortio -> /fortio
+  - match:
+    - uri:
+        prefix: /fortio2/
+    route:
+    - destination:
+        host: echosrv2.perf-istio.svc.cluster.local
+        port:
+          number: 8080
+    rewrite:
+      uri: / # drop the /fortio2 prefix when talking to fortio such as /fortio2/fortio -> /fortio
+  - match:
+    - uri:
+        prefix: /fortio3/
+    route:
+    - destination:
+        host: echosrv3.perf-fortio.svc.cluster.local
+        port:
+          number: 8080
+    rewrite:
+      uri: / # drop the /fortio2 prefix when talking to fortio such as /fortio2/fortio -> /fortio
+  - match:
+    - uri:
+        prefix: /fortio4/
+    route:
+    - destination:
+        host: echosrv4.perf-fortio.svc.cluster.local
+        port:
+          number: 8080
+    rewrite:
+      uri: / # drop the /fortio2 prefix when talking to fortio such as /fortio2/fortio -> /fortio
