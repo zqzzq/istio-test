@@ -5,6 +5,8 @@ source ./istio-test-config.conf
 current_image=$(grep "image:" perf_k8svcs.yaml |tail -1 | awk '{print $2}')
 sed -i "s|image: $current_image|image: $test_image|g" ./perf_k8svcs.yaml
 
+mkdir log
+
 function create_instances() {
   echo "----------------------------------------------------------creating the necessary service----------------------------------------------------------"
   kubectl create ns perf-istio
