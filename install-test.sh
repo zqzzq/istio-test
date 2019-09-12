@@ -4,6 +4,8 @@ source ./istio-test-config.conf
 
 current_image=$(grep "image:" perf_k8svcs.yaml |tail -1 | awk '{print $2}')
 sed -i "s|image: $current_image|image: $test_image|g" ./perf_k8svcs.yaml
+node_name=$(kubectl -n istio-system  get po -owide |grep ingress |  awk '{ print $7 }' |head -1)
+sed -i "s|slave1|$node_name|g" ./perf_k8svcs.yaml
 
 mkdir log
 
