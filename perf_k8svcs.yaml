@@ -30,18 +30,7 @@ spec:
       labels:
         app: echosrv1
     spec:
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - istio-ingressgateway
-              topologyKey: kubernetes.io/hostname
+      nodeName: slave1
       containers:
       - name: echosrv
         image: registry.icp.com:5000/library/istio/docker.io/istio/fortio:latest_release
@@ -78,18 +67,7 @@ spec:
       labels:
         app: echosrv2
     spec:
-      affinity:
-        podAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - echosrv1
-              topologyKey: kubernetes.io/hostname
+      nodeName: slave1
       containers:
       - name: echosrv
         image: registry.icp.com:5000/library/istio/docker.io/istio/fortio:latest_release
@@ -126,18 +104,7 @@ spec:
       labels:
         app: echosrv3
     spec:
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - istio-ingressgateway
-              topologyKey: kubernetes.io/hostname
+      nodeName: slave1
       containers:
       - name: echosrv
         image: registry.icp.com:5000/library/istio/docker.io/istio/fortio:latest_release
@@ -172,18 +139,7 @@ spec:
       labels:
         app: echosrv4
     spec:
-      affinity:
-        podAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - echosrv3
-              topologyKey: kubernetes.io/hostname
+      nodeName: slave1
       containers:
       - name: echosrv
         image: registry.icp.com:5000/library/istio/docker.io/istio/fortio:latest_release
@@ -219,18 +175,7 @@ spec:
       labels:
         app: fortio-client
     spec:
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - istio-ingressgateway
-              topologyKey: kubernetes.io/hostname
+      nodeName: slave1
       containers:
       - name: fortio-client
         image: registry.icp.com:5000/library/istio/docker.io/istio/fortio:latest_release
